@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'CoreRoot.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'coredb',
+        'USER': 'core',
+        'PASSWORD': 'e6$Tw.Q7@9W:2,u8_r&S=m',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
