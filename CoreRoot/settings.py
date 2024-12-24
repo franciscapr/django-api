@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'core',
     'core.user',
-    'rest_framework',
+    'core.auth',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Indicamos a Django que use este modelo de usuario para el modelo se usuario de autenticaciòn
 AUTH_USER_MODEL = 'core_user.User'
+
+REST_FRAMEWORK = {
+    'DEAFULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS':
+    ['django_filters.rest_framework.DjangoFilterBackend'],
+}
