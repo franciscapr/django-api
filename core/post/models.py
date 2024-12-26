@@ -11,6 +11,7 @@ class Post(AbstractModel):
                                on_delete=models.CASCADE)
     body = models.TextField()
     edited = models.BooleanField(default=False)
+    
     objects = PostManager()
 
     def __str__(self):
