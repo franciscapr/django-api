@@ -7,12 +7,6 @@ from django.http import Http404
 from core.abstract.models import AbstractModel, AbstractManager
 
 class UserManager(BaseUserManager, AbstractManager):
-    def get_object_by_public_id(self, public_id):
-        try:
-            instance = self.get(public_id=public_id)
-            return instance
-        except(ObjectDoesNotExist, ValueError, TypeError):
-            return Http404
         
     def create_user(self, username, email, password=None, **kwargs):
         """Create and return a 'USER' whit an emai, phone numbrer, username and password."""

@@ -6,6 +6,7 @@ from core.abstract.viewsets import AbstractViewSet
 from core.user.serializer import UserSerializer
 from core.user.models import User
 
+
 class UserViewSet(AbstractViewSet):
     http_method_names = ('patch', 'get')
     permission_classes = (IsAuthenticated,)
