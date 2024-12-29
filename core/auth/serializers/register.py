@@ -10,15 +10,15 @@ class RegisterSerializer(UserSerializer):
     password = serializers.CharField(max_length=128,
                                      min_length=8, write_only=True, required=True)
     
+    class Meta:
+         model = User
+         # Lista de todos los campos que pueden incluirse en una solicitud o respuesta
+         fields = ['id', 'bio', 'avatar', 'email', 'username', 'first_name', 'last_name', 'password']
+
     # class Meta:
     #     model = User
     #     # Lista de todos los campos que pueden incluirse en una solicitud o respuesta
-    #     fields = ['id', 'bio', 'avatar', 'email', 'username', 'first_name', 'last_name', 'password']
-
-    class Meta:
-        model = User
-        # Lista de todos los campos que pueden incluirse en una solicitud o respuesta
-        fields = ['id', 'email', 'username', 'first_name', 'last_name', 'password']
+    #     fields = ['id', 'email', 'username', 'first_name', 'last_name', 'password']
 
     def create(self, validated_data):
         # Usa el método 'create_user' que escribimos anteriormente para el UserManager para crear un nuevo usuario.

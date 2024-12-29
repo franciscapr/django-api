@@ -53,7 +53,7 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(null=True)
 
     USERNAME_FIELD = 'email'
-    REUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 

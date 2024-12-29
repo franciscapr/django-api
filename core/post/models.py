@@ -7,7 +7,7 @@ class PostManager(AbstractManager):
 
 
 class Post(AbstractModel):
-    author = models.ForeignKey(to='core_user.User',
+    author = models.ForeignKey(to='core_user.User',    # Relaciòn clave foranea
                                on_delete=models.CASCADE)
     body = models.TextField()
     edited = models.BooleanField(default=False)

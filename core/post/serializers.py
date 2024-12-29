@@ -9,8 +9,7 @@ from core.user.serializer import UserSerializer
 
 class PostSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(    # Se utiliza para representar el objetivo de la relaciòn utilizando un compo en el objetivo.
-        queryset=User.objects.all(), slug_field='public_id'
-    )
+        queryset=User.objects.all(), slug_field='public_id')    # Utilizamos public_id para recuperar al usuario
 
     def validate_author(self, value):
         if self.context["request"].user != value:
@@ -19,11 +18,10 @@ class PostSerializer(AbstractSerializer):
     
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        author = User.objects.get_object_by_public_id["author"]
+        author = User.objects.get_object_by_public_id(rep["author"])
         rep["author"] = UserSerializer(author).data
 
         return rep
-
 
 
     class Meta:

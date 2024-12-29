@@ -1,7 +1,5 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
-from core.user.serializer import UserSerializer
-from core.user.models import User
+
 from core.abstract.viewsets import AbstractViewSet
 from core.user.serializer import UserSerializer
 from core.user.models import User
@@ -19,5 +17,7 @@ class UserViewSet(AbstractViewSet):
     
     def get_object(self):
         obj = User.objects.get_object_by_public_id(self.kwargs['pk'])
+
         self.check_object_permissions(self.request, obj)
+
         return obj
