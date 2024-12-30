@@ -11,3 +11,13 @@
 * Còmo sobreescribir actualizaciones y crear mètodos en viewsets y serializers.
 * Còmo refactorizar el còdigo creadno una clase abstracta para seguir el principio DRY (Don`t Repeat Yourself).
 * Còmo añadir la funcionalidad de Like y probar nuestros endpoints.
+
+## Cap4
+- Aprenderemos a còmo agregar comentarios a las publicaciones. Veremos còmo usar nuevamente las relaciones de bases de datos para crear un secciòn de comentarios para cada publicaciòn y garantizar que se mantenga la calidad del còdigo.
+* Escritura del modelo de comentario.
+* Escritura del serializador de comentarios.
+* Rutas anidadas para el recurso de comentarios.
+* Escritura de la clase CommentViewSet.
+* Actualizaciòn de un comentario.
+* Eliminaciòn de un comentario.
+

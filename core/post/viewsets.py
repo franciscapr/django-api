@@ -42,7 +42,7 @@ class PostViewSet(AbstractViewSet):
     # **kwargs --> Es una forma de pasar argumentos nombrados varibles (como pares clave-valor) a una funciòn.
 
 
-    @action(methods=['post'], details=True)
+    @action(methods=['post'], detail=True)
     def like(self, request, *args, **kwargs):   
         post = self.get_object()    # Recuperamos el objetos de la publicaciòn
         user = self.request.user

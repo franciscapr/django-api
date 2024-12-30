@@ -16,8 +16,10 @@ class PostSerializer(AbstractSerializer):
     # Este mètodo verifica si el usuario que realiza la solicitud ya ha dado like a la publicaciòn. Accede al usuario de la solicitud y verifica si existe una relaciòn entre el usuario y al publicaciòn en la tabla posts_liked.
     def get_liked(self, instance):
         request = self.context.get('request', None)
+
         if request is None or request.user.is_anonymous:
             return False
+        
         return request.user.has_liked(instance)
     
     # Este mètodo devuelve el conteo total de usuario que han dado like a la publicaciòn, utilizando el campo liked_by que hemos añadido al modelo Post.
@@ -30,23 +32,23 @@ class PostSerializer(AbstractSerializer):
             raise ValidationError("You can`t create a post for another user.")
         return value
     
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        author = User.objects.get_object_by_public_id(rep["author"])
-        rep["author"] = UserSerializer(author).data
-
-        return rep
-    
     def update(self, instance, validated_data):
         if not instance.edited:
             validated_data['edited'] = True
 
         instance = super().update(instance, validated_data)
         return instance
+    
 
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        author = User.objects.get_object_by_public_id(rep["author"])
+        rep["author"] = UserSerializer(author).data
+
+        return rep
 
     class Meta:
         model = Post
         # List of all the fileds that can be included in a request or a response
-        fields = ['id', 'author', 'body', 'edited', 'liked', 'liked_count', 'created', 'updated']
+        fields = ['id', 'author', 'body', 'edited', 'liked', 'likes_count', 'created', 'updated']
         read_only_fields = ["edited"]
