@@ -6,7 +6,7 @@ from core.post.serializers import PostSerializer
 
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import action
+from rest_framework.decorators import action    # Nos permite que los mètodo de la clase ViewSet sean accesibles como rutas.
 
 
 class PostViewSet(AbstractViewSet):
@@ -34,3 +34,25 @@ class PostViewSet(AbstractViewSet):
         self.perform_create(serializer)    # Para crear un objeto de publicaciòn.
         return Response(serializer.data,
                         status=status.HTTP_201_CREATED)
+    
+
+    # detail si se establece en True, la ruta de esta acciòn requerira un identificador especifico del recurso, como un ID.
+    # methods, es una lista de mètodos HTTP permitidos por la acciòn
+    @action(methods=['post'], details=True)
+    # *args --> Argumentos posicionales variables "permite que una funciòn reciba un nùmero indefinido de argumentos posicionales"
+    # **kwargs --> Es una forma de pasar argumentos nombrados varibles (como pares clave-valor) a una funciòn.
+    def like(self, request, *args, **kwargs):
+        post = self.get_object()
+        user = self.request.user
+        user.like(post)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data,
+                        status=status.HTTP_200_OK)
+    
+    @action(methods=['post'], detail=True)
+    def remove_like(self, request, *args, **kwargs):
+        post = self.get_object()
+        user = self.request.user
+        user.remove_like(post)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data, status=status.HTTP_200_OK)
