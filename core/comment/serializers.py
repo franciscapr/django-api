@@ -11,24 +11,24 @@ class CommentSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='public_id')
     post = serializers.SlugRelatedField(queryset=Post.objects.all(), slug_field='public_id')
 
-    # def validate_author(self, value):
-    #     if self.context["request"].user != value:
-    #         raise ValidationError("You can`t create a post for another user.")
-    #     return value
+    def validate_author(self, value):
+        if self.context["request"].user != value:
+            raise ValidationError("You can`t create a post for another user.")
+        return value
     
-    # # Estamos impidiendo que los usuarios creen comentarios en nombre de otros usuarios
-    # def validate_post(self, value):
-    #     if self.instance:
-    #         return self.instance.post
-    #     return value
+    # Estamos impidiendo que los usuarios creen comentarios en nombre de otros usuarios
+    def validate_post(self, value):
+        if self.instance:
+            return self.instance.post
+        return value
     
-    # def update(self, instance, validated_data):
-    #     if not instance.edited:
-    #         validated_data['edited'] = True
+    def update(self, instance, validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
             
-    #     instance = super().update(instance, validated_data)
+        instance = super().update(instance, validated_data)
 
-    #     return instance
+        return instance
 
 
     # Modifica el objeto final al agregar informaciòn sobre el autor
