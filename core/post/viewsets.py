@@ -7,11 +7,12 @@ from core.post.serializers import PostSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action    # Nos permite que los mètodo de la clase ViewSet sean accesibles como rutas.
+from core.auth.permissions import UserPermission
 
 
 class PostViewSet(AbstractViewSet):
     http_method_names = ('post', 'get', 'put', 'delete')
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (UserPermission,)
     serializer_class =  PostSerializer
 
 

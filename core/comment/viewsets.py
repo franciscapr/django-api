@@ -1,4 +1,5 @@
 from django.http.response import Http404
+
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -20,20 +21,21 @@ class CommentViewSet(AbstractViewSet):
         post_pk = self.kwargs['post_pk']    # SI el usuario no es superusuario, entonces se devuelven los comentarios relacionados con una publicaciòn.
         if post_pk is None:
             return Http404
-        queryset = Comment.objects.filter(
-            post__public_id=post_pk
-        )
+        queryset = Comment.objects.filter(post__public_id=post_pk)
+
         return queryset
     
     # Este mètodo se llama en cada solicitud realizada al endpoint /api/post/post_pk/comment/comment_pk/
     def get_object(self):
-        obj = Comment.objects.get_object_by_public_id(
-            self.kwargs['pk'])
+        obj = Comment.objects.get_object_by_public_id(self.kwargs['pk'])
+
         self.check_object_permissions(self.request, obj)
+        
         return obj
 
-
+    # Usamos el post_pk de la url para buscar la publicaciòn relacionada con el comentario.
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.is_valid(raise_exception=True)   # Varificamos si la publicaciòn existe. Si no, devolvemos un error 404.
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)    # Creaciòn del comentario, validamos los datos con el serializador y guardamos el comentario con el usuario autenticado como autor.
