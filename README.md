@@ -21,3 +21,10 @@
 * Actualizaciòn de un comentario.
 * Eliminaciòn de un comentario.
 
+## Cap5
+- Exploraremos las diferentes formas de probar software, incluyendo sus pros y contras, y tambièn hablaremos sobre el concepto de la piràmide de pruebas. Ademàs, revisaremos las herramientas necesarias para agregar pruebas a una aplicaciòn Django y còmo escribir pruebas para los modelos y los conjuntos de vistas viewsets.
+* ¿Què es un testing?
+* Testing en Django
+* Configuraciòn del entorno de pruebas
+* Escribir pruebas para modelos de Django
+* Escribir pruebas para conjuntos de vistas en Django
