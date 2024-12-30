@@ -10,6 +10,20 @@ from core.user.serializer import UserSerializer
 class PostSerializer(AbstractSerializer):
     author = serializers.SlugRelatedField(    # Se utiliza para representar el objetivo de la relaciòn utilizando un compo en el objetivo.
         queryset=User.objects.all(), slug_field='public_id')    # Utilizamos public_id para recuperar al usuario
+    liked = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+
+    # Este mètodo verifica si el usuario que realiza la solicitud ya ha dado like a la publicaciòn. Accede al usuario de la solicitud y verifica si existe una relaciòn entre el usuario y al publicaciòn en la tabla posts_liked.
+    def get_liked(self, instance):
+        request = self.context.get('request', None)
+        if request is None or request.user.is_anonymous:
+            return False
+        return request.user.has_liked(instance)
+    
+    # Este mètodo devuelve el conteo total de usuario que han dado like a la publicaciòn, utilizando el campo liked_by que hemos añadido al modelo Post.
+    def get_likes_count(self, instance):
+        return instance.liked_by.count()
+
 
     def validate_author(self, value):
         if self.context["request"].user != value:
@@ -34,5 +48,5 @@ class PostSerializer(AbstractSerializer):
     class Meta:
         model = Post
         # List of all the fileds that can be included in a request or a response
-        fields = ['id', 'author', 'body', 'edited', 'created', 'updated']
+        fields = ['id', 'author', 'body', 'edited', 'liked', 'liked_count', 'created', 'updated']
         read_only_fields = ["edited"]
