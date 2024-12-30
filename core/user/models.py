@@ -67,3 +67,22 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
     @property
     def name(self):
         return f'{self.first_name} {self.last_name}'
+    
+
+    # Mètodo utilizados para dar like a una publicaciòn. Para esto utilizaremos el mètodo add() de los models, y ManyToManyField para vincular un apublicaciòn a un usuario.
+    def like(self, post):
+        """Like 'post' if it hasn`t been done yet"""
+        return self.posts_liked.add(post)
+    
+    
+    # Se utiliza para quitar like de una publicaciòn. Pra esto, usaremos el mètodo remove() de los modelos. Utilizaremos ManyToManyFiedl para desvincular una publicaciòn de una usuario.
+    def remove_like(self, post):
+        """Remove a like from a 'post'"""
+        return self.posts_liked.remove(post)
+    
+
+    # Se utiliz para devolver True si el usuario ha dado Like a un publicaciòn; de lo contrario, False.
+    def has_liked(self, post):
+        """ Return True if theuser has liked a 'post'; else False"""
+        return self.posts_liked.filter(pk=post.pk).exists()
+    
