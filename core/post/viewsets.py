@@ -38,21 +38,24 @@ class PostViewSet(AbstractViewSet):
 
     # detail si se establece en True, la ruta de esta acciòn requerira un identificador especifico del recurso, como un ID.
     # methods, es una lista de mètodos HTTP permitidos por la acciòn
-    @action(methods=['post'], details=True)
     # *args --> Argumentos posicionales variables "permite que una funciòn reciba un nùmero indefinido de argumentos posicionales"
     # **kwargs --> Es una forma de pasar argumentos nombrados varibles (como pares clave-valor) a una funciòn.
-    def like(self, request, *args, **kwargs):
-        post = self.get_object()
+
+
+    @action(methods=['post'], details=True)
+    def like(self, request, *args, **kwargs):   
+        post = self.get_object()    # Recuperamos el objetos de la publicaciòn
         user = self.request.user
-        user.like(post)
-        serializer = self.serializer_class(post)
-        return Response(serializer.data,
+        user.like(post)    # Llamamos la mètodo like del modelo User para marcar la publicaciòn con like.
+        serializer = self.serializer_class(post)   # Serializa la publicaciòn actualizada con el contexto de la solicitud y devuelve una respuesta con estado 200 OK
+        return Response(serializer.data,    
                         status=status.HTTP_200_OK)
     
+
     @action(methods=['post'], detail=True)
     def remove_like(self, request, *args, **kwargs):
-        post = self.get_object()
+        post = self.get_object()    # Recuperamos el objetos de la publicaciòn
         user = self.request.user
-        user.remove_like(post)
-        serializer = self.serializer_class(post)
+        user.remove_like(post)    # Llama al mètodo remove_like del modelo User para quitar el like de la publicaciòn.
+        serializer = self.serializer_class(post)    # Serializa la publicaciòn actualizada con el contexto de la solicitud y devuelve una respuesta con estado 200 OK
         return Response(serializer.data, status=status.HTTP_200_OK)
