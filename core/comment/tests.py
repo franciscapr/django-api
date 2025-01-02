@@ -13,4 +13,3 @@ def test_create_comment(user, post):
     assert comment.post == post
     assert comment.body == "Test Comment Body"
 
-# Create your tests here.

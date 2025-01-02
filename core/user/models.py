@@ -56,8 +56,8 @@ class User(AbstractModel, AbstractBaseUser, PermissionsMixin):
         related_name="liked_by"
     )
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    EMAIL_FIELD = 'email'
 
     objects = UserManager()
 
