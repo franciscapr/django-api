@@ -28,3 +28,7 @@
 * Configuraciòn del entorno de pruebas
 * Escribir pruebas para modelos de Django
 * Escribir pruebas para conjuntos de vistas en Django
+
+## Cap6
+* Creando una interfaz de usuario reactiva con React
+* Construiràs una aplicaciòn React que represente la interfaz de usuario (UI) de postagram, donde los usuario podràn ver publicaciones y perfiles de otros usuario.
