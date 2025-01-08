@@ -32,3 +32,7 @@
 ## Cap6
 * Creando una interfaz de usuario reactiva con React
 * Construiràs una aplicaciòn React que represente la interfaz de usuario (UI) de postagram, donde los usuario podràn ver publicaciones y perfiles de otros usuario.
+* Entender el desarrollo frontend
+* Crear el proyecto con React
+* Configurar el proyecto
+* Caracterìsticas ùtiles de ES6 y React
