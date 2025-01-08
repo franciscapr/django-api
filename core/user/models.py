@@ -32,7 +32,7 @@ class UserManager(BaseUserManager, AbstractManager):
         if username is None:
             raise TypeError('Superusers must have an username.')
         
-        user = self.create_user(user, email, password, **kwargs)
+        user = self.create_user(username, email, password, **kwargs)
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)

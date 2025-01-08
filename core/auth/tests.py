@@ -3,6 +3,7 @@ from rest_framework import status
 
 from core.fixtures.user import user
 
+# Este mètodo prueba el endopoint de inicio de sesiòn
 class TestAuthenticationViewSet:
     
     endpoint = '/api/auth/'
@@ -21,7 +22,7 @@ class TestAuthenticationViewSet:
         assert response.data['user']['email'] == user.email
         
 
-
+# Prueba el mètodo de registro
     @pytest.mark.django_db    
     def test_register(self, client):
         data = {
@@ -34,7 +35,9 @@ class TestAuthenticationViewSet:
         
         response = client.post(self.endpoint + "register/", data)
         assert response.status_code == status.HTTP_201_CREATED
-        
+
+
+# Prueba el mètodo de actualizaciòn del token
     def test_refresh(self, client, user):
         data = {
             "username": user.username,
